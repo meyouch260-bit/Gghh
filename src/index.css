@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-night: #1a120d;
+  --color-ember: #2a1d15;
+  --color-coal: #3a2a1f;
+  --color-cream: #fbeee0;
+  --color-muted: #c9b39c;
+  --color-flame: #f59e0b;
+  --color-flame-strong: #f97316;
+  --color-berry: #f43f5e;
+  --color-leaf: #4ade80;
+  --font-sans: 'Nunito', ui-rounded, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+/* Mode gros caractères : tout est en rem, on agrandit la base. */
+html.large-text {
+  font-size: 21px;
+}
+
+body {
+  background: var(--color-night);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+:focus-visible {
+  outline: 3px solid var(--color-flame);
+  outline-offset: 2px;
+}

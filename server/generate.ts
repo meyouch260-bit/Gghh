@@ -79,13 +79,22 @@ async function generateWithClaude(req: GenerateRequest, games: Game[]): Promise<
   let lastErrors: string[] = [];
 
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    const response = await client.messages.parse({
-      model: process.env.ANTHROPIC_MODEL || DEFAULT_MODEL,
-      max_tokens: 16000,
-      system: SYSTEM_PROMPT,
-      messages,
-      output_config: { format: zodOutputFormat(AiProgramSchema) },
-    });
+    let response;
+    try {
+      response = await client.messages.parse({
+        model: process.env.ANTHROPIC_MODEL || DEFAULT_MODEL,
+        max_tokens: 16000,
+        system: SYSTEM_PROMPT,
+        messages,
+        output_config: { format: zodOutputFormat(AiProgramSchema) },
+      });
+    } catch (err) {
+      if (err instanceof Anthropic.APIError) throw err;
+      // JSON non conforme au schéma Zod : on retente avec la même requête.
+      lastErrors = [`Sortie non conforme au schéma : ${err instanceof Error ? err.message : err}`];
+      console.warn(`[generate] tentative ${attempt} rejetée :`, lastErrors);
+      continue;
+    }
 
     const output = response.parsed_output;
     lastErrors = output ? validate(req, output.activities, allowedById) : ['Réponse JSON illisible ou incomplète.'];
