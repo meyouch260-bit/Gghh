@@ -6,6 +6,7 @@ import type { Activity, Game, Party } from '../../shared/types';
 import { ContentView, contentSummary } from '../components/ContentView';
 import { GameCard, GameRules } from '../components/GameCard';
 import { ScoreEntry } from '../components/Scoreboard';
+import { Timer } from '../components/Timer';
 import { Button, Card, ErrorBox, Header, Section, Spinner } from '../components/ui';
 import type { Nav } from '../nav';
 import { generate } from '../services/api';
@@ -100,6 +101,10 @@ export function ActivityScreen({ nav, activityId }: { nav: Nav; activityId: stri
               </ul>
             </Section>
           )}
+
+          <Section title="Chrono">
+            <Timer />
+          </Section>
 
           <Section title="Contenu prêt à jouer">
             <ContentView content={activity.content} />

@@ -19,7 +19,7 @@ import type { Nav } from '../nav';
 import { generate } from '../services/api';
 import { useStore } from '../state/store';
 
-const MOOD_EMOJI: Record<string, string> = { chill: '🛋️', festive: '🎉', competitive: '🏆', intello: '🧠', nostalgie: '📼' };
+const MOOD_EMOJI: Record<string, string> = { chill: '🛋️', festive: '🎉', competitive: '🏆', intello: '🧠', nostalgie: '📼', couples: '💞' };
 
 const toggle = <T,>(list: T[], v: T) => (list.includes(v) ? list.filter((x) => x !== v) : [...list, v]);
 
@@ -40,6 +40,7 @@ export function CreateScreen({ nav }: { nav: Nav }) {
   );
   const [alcoholTouched, setAlcoholTouched] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [written, setWritten] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
   const patch = (p: Partial<PartySettings>) => setS((prev) => ({ ...prev, ...p }));
@@ -54,10 +55,11 @@ export function CreateScreen({ nav }: { nav: Nav }) {
 
   const submit = async () => {
     setLoading(true);
+    setWritten(0);
     setError(null);
     try {
-      const { activities } = await generate({ mode: 'program', settings: s });
-      dispatch({ type: 'CREATE_PARTY', settings: s, activities });
+      const { activities, source } = await generate({ mode: 'program', settings: s }, setWritten);
+      dispatch({ type: 'CREATE_PARTY', settings: s, activities, source });
       nav.replace({ name: 'program' });
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Erreur inconnue');
@@ -69,7 +71,13 @@ export function CreateScreen({ nav }: { nav: Nav }) {
     return (
       <div>
         <Header title="Préparation…" />
-        <Spinner label="On concocte votre programme de soirée. Cela peut prendre jusqu'à une minute." />
+        <Spinner
+          label={
+            written > 0
+              ? `Claude écrit le programme… ${written} activité${written > 1 ? 's' : ''} rédigée${written > 1 ? 's' : ''}`
+              : 'On concocte votre programme de soirée. Cela peut prendre jusqu’à deux minutes.'
+          }
+        />
       </div>
     );
   }

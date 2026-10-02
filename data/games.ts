@@ -1,7 +1,7 @@
 import type { Game } from '../shared/types.js';
 
 /**
- * Bibliothèque des 50 jeux. Source de vérité pour le catalogue, le filtre
+ * Bibliothèque des jeux (50 jeux de base + 3 jeux « entre couples »). Source de vérité pour le catalogue, le filtre
  * d'éligibilité et le prompt envoyé à l'IA.
  */
 export const GAMES: Game[] = [
@@ -12,7 +12,7 @@ export const GAMES: Game[] = [
     category: 'mime',
     ageMin: 10, ageMax: 80, playersMin: 4, playersMax: 20, durationMin: 30,
     materials: ['papier'], energy: 'moyen',
-    moods: ['festive', 'competitive', 'chill'], universal: true, contentKind: 'words',
+    moods: ['festive', 'competitive', 'chill', 'couples'], universal: true, contentKind: 'words',
     rules: [
       'Deux équipes, une pile de mots (personnages, objets, lieux) utilisée pendant 3 manches.',
       'Manche 1 : décrire librement ; manche 2 : un seul mot ; manche 3 : mime uniquement.',
@@ -46,7 +46,7 @@ export const GAMES: Game[] = [
     category: 'mime',
     ageMin: 10, ageMax: 80, playersMin: 4, playersMax: 16, durationMin: 25,
     materials: ['papier'], energy: 'calme',
-    moods: ['chill', 'festive', 'competitive'], universal: true, contentKind: 'words',
+    moods: ['chill', 'festive', 'competitive', 'couples'], universal: true, contentKind: 'words',
     rules: [
       'Un dessinateur par équipe reçoit un mot secret.',
       'Il dessine sans lettres ni chiffres ; son équipe doit deviner en 1 minute.',
@@ -63,7 +63,7 @@ export const GAMES: Game[] = [
     category: 'mime',
     ageMin: 10, ageMax: 80, playersMin: 4, playersMax: 16, durationMin: 20,
     materials: [], energy: 'calme',
-    moods: ['festive', 'competitive', 'intello'], contentKind: 'words',
+    moods: ['festive', 'competitive', 'intello', 'couples'], contentKind: 'words',
     rules: [
       'Faire deviner un mot à son équipe sans prononcer les 3 mots interdits de la carte.',
       "Un adversaire surveille : s'il entend un mot interdit, la carte est perdue.",
@@ -80,7 +80,7 @@ export const GAMES: Game[] = [
     category: 'mime',
     ageMin: 10, ageMax: 80, playersMin: 2, playersMax: 20, durationMin: 15,
     materials: ['papier'], energy: 'calme',
-    moods: ['chill', 'festive'], universal: true, contentKind: 'words',
+    moods: ['chill', 'festive', 'couples'], universal: true, contentKind: 'words',
     rules: [
       'Deux joueurs dos à dos : l\'un décrit un objet sans le nommer, l\'autre le dessine.',
       'Le dessinateur ne peut pas poser de questions.',
@@ -131,7 +131,7 @@ export const GAMES: Game[] = [
     category: 'mime',
     ageMin: 10, ageMax: 80, playersMin: 4, playersMax: 20, durationMin: 20,
     materials: [], energy: 'moyen',
-    moods: ['festive', 'nostalgie'], universal: true, contentKind: 'blindtest',
+    moods: ['festive', 'nostalgie', 'couples'], universal: true, contentKind: 'blindtest',
     rules: [
       'Un joueur mime le titre d\'une chanson connue, sans chanter ni fredonner.',
       'Son équipe doit trouver le titre (et bonus pour l\'artiste).',
@@ -235,7 +235,7 @@ export const GAMES: Game[] = [
     category: 'quiz',
     ageMin: 10, ageMax: 80, playersMin: 2, playersMax: 30, durationMin: 20,
     materials: [], energy: 'calme',
-    moods: ['chill', 'nostalgie', 'festive'], universal: true, contentKind: 'quiz',
+    moods: ['chill', 'nostalgie', 'festive', 'couples'], universal: true, contentKind: 'quiz',
     rules: [
       'Répliques cultes, acteurs, intrigues résumées : trouvez le film ou la série.',
       'Les équipes écrivent leurs réponses, correction toutes les 5 questions.',
@@ -320,7 +320,7 @@ export const GAMES: Game[] = [
     category: 'quiz',
     ageMin: 10, ageMax: 80, playersMin: 4, playersMax: 20, durationMin: 20,
     materials: ['papier'], energy: 'calme',
-    moods: ['festive', 'nostalgie', 'chill'], universal: true, contentKind: 'prompts',
+    moods: ['festive', 'nostalgie', 'chill', 'couples'], universal: true, contentKind: 'prompts',
     rules: [
       "Avant la soirée ou en début de partie, chacun répond en secret à quelques questions sur lui.",
       "L'hôte lit une réponse : « Qui a déjà dormi sous une tente dans le désert ? ».",
@@ -373,7 +373,7 @@ export const GAMES: Game[] = [
     category: 'musique',
     ageMin: 10, ageMax: 80, playersMin: 2, playersMax: 30, durationMin: 25,
     materials: ['enceinte', 'smartphones'], energy: 'moyen',
-    moods: ['festive', 'nostalgie', 'competitive'], universal: true, contentKind: 'blindtest',
+    moods: ['festive', 'nostalgie', 'competitive', 'couples'], universal: true, contentKind: 'blindtest',
     rules: [
       "L'hôte lance chaque titre sur Spotify ou YouTube (aucun son dans l'app).",
       'Les équipes trouvent le titre et l\'artiste le plus vite possible.',
@@ -407,7 +407,7 @@ export const GAMES: Game[] = [
     category: 'musique',
     ageMin: 10, ageMax: 80, playersMin: 2, playersMax: 30, durationMin: 15,
     materials: [], energy: 'calme',
-    moods: ['festive', 'nostalgie'], universal: true, contentKind: 'quiz',
+    moods: ['festive', 'nostalgie', 'couples'], universal: true, contentKind: 'quiz',
     rules: [
       "L'hôte lit (ou chante) le début d'une phrase de chanson.",
       'Les équipes complètent les paroles exactes.',
@@ -441,7 +441,7 @@ export const GAMES: Game[] = [
     category: 'musique',
     ageMin: 10, ageMax: 80, playersMin: 2, playersMax: 20, durationMin: 20,
     materials: ['enceinte', 'smartphones'], energy: 'calme',
-    moods: ['nostalgie', 'chill'], universal: true, contentKind: 'blindtest',
+    moods: ['nostalgie', 'chill', 'couples'], universal: true, contentKind: 'blindtest',
     rules: [
       "L'hôte lance un tube marquant d'une année de naissance d'un invité.",
       'Tout le monde devine l\'année ; le plus proche marque 1 point.',
@@ -562,7 +562,7 @@ export const GAMES: Game[] = [
     category: 'papier',
     ageMin: 10, ageMax: 80, playersMin: 4, playersMax: 16, durationMin: 15,
     materials: ['papier'], energy: 'calme',
-    moods: ['festive', 'chill'], universal: true, contentKind: 'prompts',
+    moods: ['festive', 'chill', 'couples'], universal: true, contentKind: 'prompts',
     rules: [
       "L'hôte pose une question ; chacun écrit sa réponse anonymement.",
       'On mélange les papiers et l\'hôte les lit un par un.',
@@ -615,7 +615,7 @@ export const GAMES: Game[] = [
     category: 'social',
     ageMin: 12, ageMax: 80, playersMin: 3, playersMax: 16, durationMin: 15,
     materials: [], energy: 'calme',
-    moods: ['chill', 'festive', 'nostalgie'], contentKind: 'freeform',
+    moods: ['chill', 'festive', 'nostalgie', 'couples'], contentKind: 'freeform',
     rules: [
       'Chaque joueur énonce trois affirmations sur lui : deux vraies, une fausse.',
       'Les autres votent pour débusquer le mensonge.',
@@ -683,7 +683,7 @@ export const GAMES: Game[] = [
     category: 'social',
     ageMin: 14, ageMax: 80, playersMin: 3, playersMax: 16, durationMin: 20,
     materials: [], energy: 'moyen',
-    moods: ['festive'], contentKind: 'prompts',
+    moods: ['festive', 'couples'], contentKind: 'prompts',
     rules: [
       'Chacun choisit à son tour : action ou vérité.',
       'Les défis restent bienveillants et faisables par tous.',
@@ -700,7 +700,7 @@ export const GAMES: Game[] = [
     category: 'social',
     ageMin: 16, ageMax: 80, playersMin: 3, playersMax: 20, durationMin: 15,
     materials: [], energy: 'calme',
-    moods: ['festive', 'nostalgie'], contentKind: 'prompts',
+    moods: ['festive', 'nostalgie', 'couples'], contentKind: 'prompts',
     rules: [
       "Un joueur dit « Je n'ai jamais… » suivi d'une expérience.",
       'Ceux qui l\'ont déjà fait lèvent la main (ou perdent un point).',
@@ -717,7 +717,7 @@ export const GAMES: Game[] = [
     category: 'social',
     ageMin: 10, ageMax: 80, playersMin: 2, playersMax: 30, durationMin: 15,
     materials: [], energy: 'calme',
-    moods: ['competitive', 'intello', 'chill'], universal: true, contentKind: 'quiz',
+    moods: ['competitive', 'intello', 'chill', 'couples'], universal: true, contentKind: 'quiz',
     rules: [
       "L'hôte demande un nombre : prix d'un objet, année d'un événement, distance.",
       'Chaque équipe annonce son estimation.',
@@ -821,7 +821,7 @@ export const GAMES: Game[] = [
     category: 'defi',
     ageMin: 10, ageMax: 80, playersMin: 4, playersMax: 20, durationMin: 20,
     materials: ['smartphones'], props: 'Accessoires de la maison (chapeaux, écharpes, lunettes)', energy: 'moyen',
-    moods: ['festive'], universal: true, contentKind: 'prompts',
+    moods: ['festive', 'couples'], universal: true, contentKind: 'prompts',
     rules: [
       "L'hôte annonce un thème de photo (« pochette d'album des années 80 »).",
       'Chaque équipe a 3 minutes pour réaliser la photo avec ce qu\'elle trouve.',
@@ -838,7 +838,7 @@ export const GAMES: Game[] = [
     category: 'defi',
     ageMin: 10, ageMax: 80, playersMin: 2, playersMax: 16, durationMin: 20,
     materials: [], props: 'Bandeaux, petits échantillons sucrés/salés, épices', energy: 'calme',
-    moods: ['chill', 'festive'], universal: true, contentKind: 'prompts',
+    moods: ['chill', 'festive', 'couples'], universal: true, contentKind: 'prompts',
     rules: [
       'Les yeux bandés, le joueur goûte ou sent un échantillon.',
       'Il doit identifier l\'aliment ou l\'épice.',
@@ -855,7 +855,7 @@ export const GAMES: Game[] = [
     category: 'defi',
     ageMin: 10, ageMax: 80, playersMin: 3, playersMax: 20, durationMin: 10,
     materials: ['papier'], energy: 'calme',
-    moods: ['festive', 'chill'], universal: true, contentKind: 'freeform',
+    moods: ['festive', 'chill', 'couples'], universal: true, contentKind: 'freeform',
     rules: [
       'Chacun dessine le portrait de son voisin de droite en 30 secondes.',
       "On mélange les portraits et l'hôte les montre un par un.",
@@ -864,6 +864,58 @@ export const GAMES: Game[] = [
     adaptations: {
       younger: 'Ils adorent : autoriser les caricatures bienveillantes.',
       older: '45 secondes et gros feutres.',
+    },
+  },
+  // ---------------- ENTRE COUPLES ----------------
+  {
+    id: 'qui-de-nous-deux',
+    name: 'Qui de nous deux ?',
+    category: 'social',
+    ageMin: 16, ageMax: 80, playersMin: 4, playersMax: 20, durationMin: 20,
+    materials: ['papier'], energy: 'calme',
+    moods: ['couples', 'festive', 'chill'], contentKind: 'prompts',
+    rules: [
+      'Chaque couple s\'assoit dos à dos, chacun avec deux papiers : son prénom et celui de son partenaire.',
+      "L'hôte lit une question (« Qui de vous deux cuisine le mieux ? ») et chacun lève le papier de son choix.",
+      "1 point au couple quand les deux réponses concordent ; les désaccords se racontent !",
+    ],
+    adaptations: {
+      younger: 'Les ados jouent les arbitres et choisissent les questions.',
+      older: 'Questions sur les souvenirs du couple : premier voyage, rencontre, mariage.',
+    },
+  },
+  {
+    id: 'quiz-des-couples',
+    name: 'Le quiz des couples',
+    category: 'quiz',
+    ageMin: 16, ageMax: 80, playersMin: 4, playersMax: 20, durationMin: 25,
+    materials: ['papier'], energy: 'calme',
+    moods: ['couples', 'competitive', 'nostalgie'], contentKind: 'prompts',
+    rules: [
+      'Un partenaire sort de la pièce ; l\'autre répond par écrit à des questions sur lui.',
+      'Le partenaire revient et répond aux mêmes questions à voix haute.',
+      'Chaque réponse identique rapporte 1 point au couple ; on inverse les rôles à mi-parcours.',
+    ],
+    adaptations: {
+      younger: 'Version « parent / enfant » : un ado peut faire équipe avec un parent.',
+      older: 'Questions sur leur histoire commune ; ils gagnent souvent haut la main.',
+    },
+  },
+  {
+    id: 'mime-en-duo',
+    name: 'Mime en duo',
+    category: 'mime',
+    ageMin: 14, ageMax: 80, playersMin: 4, playersMax: 20, durationMin: 20,
+    materials: [], energy: 'moyen',
+    moods: ['couples', 'festive'], contentKind: 'words',
+    rules: [
+      'Chaque couple reçoit une scène à deux à mimer (« un rendez-vous chez le dentiste »).',
+      'Les deux partenaires jouent ensemble, sans parler, pendant 1 minute.',
+      'Les autres couples devinent : 1 point au couple qui trouve, 1 point au duo qui a fait deviner.',
+    ],
+    adaptations: {
+      younger: 'Scènes simples du quotidien (faire les courses, promener le chien).',
+      older: 'Scènes assises (au restaurant, au cinéma, en voiture).',
     },
   },
 ];

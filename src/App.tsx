@@ -9,6 +9,7 @@ import { ProgramScreen } from './screens/ProgramScreen';
 import { ScoresScreen } from './screens/ScoresScreen';
 import { TeamsScreen } from './screens/TeamsScreen';
 import { useStore } from './state/store';
+import { useWakeLock } from './useWakeLock';
 
 const NEEDS_PARTY: Screen['name'][] = ['program', 'activity', 'teams', 'scores', 'final'];
 
@@ -45,6 +46,7 @@ export default function App() {
   };
 
   const current: Screen = NEEDS_PARTY.includes(screen.name) && !state.party ? { name: 'home' } : screen;
+  useWakeLock(state.party?.phase === 'playing' && (current.name === 'program' || current.name === 'activity'));
 
   return (
     <main className="mx-auto min-h-dvh max-w-xl px-4 pb-[env(safe-area-inset-bottom)]">

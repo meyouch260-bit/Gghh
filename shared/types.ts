@@ -6,7 +6,7 @@
 export const AGE_BANDS = ['10-13', '14-17', '18-30', '30-60', '60-80'] as const;
 export type AgeBand = (typeof AGE_BANDS)[number];
 
-export const MOODS = ['chill', 'festive', 'competitive', 'intello', 'nostalgie'] as const;
+export const MOODS = ['chill', 'festive', 'competitive', 'intello', 'nostalgie', 'couples'] as const;
 export type Mood = (typeof MOODS)[number];
 
 export const VENUES = ['petit-salon', 'grand-salon', 'jardin'] as const;
@@ -116,6 +116,8 @@ export interface Player {
   name: string;
   ageBand?: AgeBand;
   teamId?: string;
+  /** Joueurs d'un même couple partagent cet identifiant. */
+  coupleId?: string;
 }
 
 export interface Team {
@@ -145,6 +147,10 @@ export interface Party {
   activities: Activity[];
   scores: ScoreEntry[];
   phase: PartyPhase;
+  /** Qui a généré le programme : Claude ou le mode démo. */
+  source?: 'ai' | 'demo';
+  /** Éléments cochés de la liste « À préparer ». */
+  prepChecked?: string[];
 }
 
 // ---------- Libellés FR ----------
@@ -155,6 +161,7 @@ export const MOOD_LABELS: Record<Mood, string> = {
   competitive: 'Compétitive',
   intello: 'Intello',
   nostalgie: 'Nostalgie',
+  couples: 'Entre couples',
 };
 export const VENUE_LABELS: Record<Venue, string> = {
   'petit-salon': 'Petit salon',

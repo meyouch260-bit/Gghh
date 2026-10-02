@@ -13,6 +13,7 @@ export const SYSTEM_PROMPT = `Tu es l'animateur de soirées jeux d'une famille f
 - Avec des 60-80 ans : pas de jeu physique rapide, favorise les jeux calmes ou assis, et propose des équipes qui mélangent les générations.
 - Avec des 10-13 ans : contenu simple et bienveillant, aucune référence adulte, violente ou sexuelle.
 - Si la soirée est "sans alcool" : aucune mention d'alcool, de boisson alcoolisée ou de gage à boire.
+- Ambiance "Entre couples" : privilégie les jeux de complicité et en duo (jeux marqués "couples"), propose des équipes par couple ou, pour pimenter, des couples séparés. Questions tendres et drôles, jamais gênantes, intimes ou qui pourraient blesser un partenaire.
 - La somme des durées doit être proche de la durée totale.
 
 ## Contenu de chaque activité
@@ -80,3 +81,14 @@ ${describeGame(game)}
 ${avoid.length ? `\nContenu déjà utilisé, à NE PAS reprendre :\n${avoid.map((a) => `- ${a}`).join('\n')}\n` : ''}
 Réponds avec { "activities": [ une seule activité ] }.`;
 }
+
+/** Format attendu, rappelé en clair quand la sortie structurée n'est pas disponible. */
+export const JSON_FORMAT = `Réponds avec UN SEUL objet JSON, sans texte autour, de la forme :
+{"activities":[{"gameId":"id du jeu","durationMin":20,"intro":"…","tips":["…","…"],"content":CONTENT}]}
+où CONTENT est, selon le "kind" du jeu, exactement l'un de :
+{"kind":"quiz","questions":[{"q":"…","a":"…","band":"30-60"}]}
+{"kind":"words","items":[{"word":"…","band":"10-13","forbidden":["…"],"pair":"…"}]}
+{"kind":"blindtest","tracks":[{"title":"…","artist":"…","year":1985,"band":"60-80"}]}
+{"kind":"prompts","items":["…"]}
+{"kind":"freeform","steps":["…"]}
+"band" est facultatif et vaut "10-13", "14-17", "18-30", "30-60" ou "60-80". "forbidden" et "pair" sont facultatifs.`;

@@ -16,9 +16,10 @@ const base: PartySettings = {
 };
 
 describe('bibliothèque', () => {
-  it('contient 50 jeux aux id uniques', () => {
-    expect(GAMES).toHaveLength(50);
-    expect(new Set(GAMES.map((g) => g.id)).size).toBe(50);
+  it('contient 50 jeux de base + 3 jeux « entre couples », aux id uniques', () => {
+    expect(GAMES).toHaveLength(53);
+    expect(new Set(GAMES.map((g) => g.id)).size).toBe(53);
+    expect(GAMES.filter((g) => g.moods.includes('couples')).length).toBeGreaterThanOrEqual(15);
   });
   it('chaque jeu a 3 lignes de règles et des adaptations', () => {
     for (const g of GAMES) {

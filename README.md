@@ -2,12 +2,14 @@
 
 Web app mobile-first qui génère un programme d'activités pour une soirée dîner entre amis ou en famille, pour tous les âges (10 à 80 ans). Interface en français, thème sombre chaleureux, mode gros caractères.
 
-- **Formulaire** : nombre de joueurs, tranches d'âge (multi-sélection), ambiance, cadre, durée, matériel, « sans alcool » (auto si 10-17 ans), gros caractères.
-- **Programme IA** : 4 à 6 activités choisies parmi les 50 jeux de la bibliothèque, avec contenu prêt à l'emploi (questions, mots à mimer, titres de blind test…) adapté aux générations présentes.
-- **Équipes** : prénoms, tirage équilibré 2 à 4 équipes, option « mixer les générations », re-tirage.
+- **Formulaire** : nombre de joueurs, tranches d'âge (multi-sélection), ambiance (chill, festive, compétitive, intello, nostalgie, **entre couples**), cadre, durée, matériel, « sans alcool » (auto si 10-17 ans), gros caractères.
+- **Programme IA** : 4 à 6 activités choisies parmi les 53 jeux de la bibliothèque (50 de base + 3 « entre couples »), avec contenu prêt à l'emploi (questions, mots à mimer, titres de blind test…) adapté aux générations présentes.
+- **Équipes** : prénoms (seul ou en couple), tirage équilibré 2 à 4 équipes, « mixer les générations », « une équipe par couple » ou « séparer les couples », re-tirage.
 - **Scores** : points par équipe après chaque activité, classement en direct, écran final.
+- **Pendant le jeu** : chrono avec bip et vibration, écran qui reste allumé, carte « mot secret » à faire passer.
+- **Avant la soirée** : liste « À préparer » (matériel et accessoires du programme, à cocher), programme à copier pour WhatsApp.
 - **Régénérer** le contenu d'une activité ou **changer de jeu**.
-- **Catalogue** des 50 jeux, filtrable par âge, énergie et ambiance.
+- **Catalogue** des 53 jeux, filtrable par âge, énergie et ambiance.
 
 ## Lancer en local
 
@@ -41,6 +43,16 @@ npm run build      # build de production dans dist/
 
 En CLI : `npm i -g vercel && vercel` puis `vercel env add ANTHROPIC_API_KEY` et `vercel --prod`.
 
+## Publier comme page claude.ai (sans serveur)
+
+```bash
+npm run build:artifact   # -> dist-artifact/soiree-jeux.html (JS et CSS inlinés)
+```
+
+Publiée comme page claude.ai avec la capacité `sample`, l'app n'a pas besoin de fonction serveur : le programme est demandé à Claude **via le compte de la personne qui ouvre la page** (autorisation demandée au premier usage). Même prompt, même validation métier et même retry que la fonction Vercel (`src/services/claudeSample.ts`). Si l'autorisation est refusée, l'app passe en mode démo.
+
+Ordre de repli côté client : `/api/generate` (Vercel) → Claude via la page claude.ai → mode démo.
+
 ## Architecture
 
 ```
@@ -55,7 +67,7 @@ shared/                Code commun client/serveur, sans dépendance au rendu
   schema.ts            Schémas Zod : requête et sortie structurée de l'IA
   eligibility.ts       Règle centrale : un jeu doit couvrir TOUS les âges choisis
   planner.ts           Planificateur heuristique (mode démo)
-data/games.ts          Les 50 jeux typés (règles, adaptations, énergie, ambiances…)
+data/games.ts          Les 53 jeux typés (règles, adaptations, énergie, ambiances…)
 src/
   state/               Store (reducer + actions + sélecteurs), persistance via services/sync
   services/            api, teams (tirage), sync (localStorage), ids (code soirée)

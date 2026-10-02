@@ -1,3 +1,4 @@
+import { GAMES } from '../../data/games';
 import { Button, Toggle } from '../components/ui';
 import type { Nav } from '../nav';
 import { progress } from '../state/selectors';
@@ -28,7 +29,7 @@ export function HomeScreen({ nav }: { nav: Nav }) {
           ✨ Nouvelle soirée
         </Button>
         <Button className="w-full" variant="secondary" onClick={() => nav.go({ name: 'catalog' })}>
-          📚 Catalogue des 50 jeux
+          📚 Catalogue des {GAMES.length} jeux
         </Button>
       </div>
 

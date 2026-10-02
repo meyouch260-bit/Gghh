@@ -117,7 +117,16 @@ const QUIZ_BY_GAME: Record<string, QuizItem[]> = {
   ],
 };
 
+const DUO_SCENES: WordItem[] = [
+  'Un rendez-vous chez le dentiste', 'Monter une tente sous la pluie', 'Un slow à un mariage', 'Faire les courses un samedi',
+  'Promener un chien qui tire', 'Le premier rendez-vous au restaurant', 'Peindre un mur à deux', 'Un créneau difficile en voiture',
+  'Une séance de cinéma avec un film qui fait peur', 'Préparer une crêpe et la faire sauter', 'Danser le rock', 'Monter un meuble en kit',
+  'Prendre un selfie devant la tour Eiffel', 'Se réveiller en retard pour prendre l\'avion',
+].map((word) => ({ word }));
+
 const PROMPTS_BY_GAME: Record<string, string[]> = {
+  'qui-de-nous-deux': ['Qui de vous deux cuisine le mieux ?', 'Qui est le plus bordélique ?', 'Qui a fait le premier pas ?', 'Qui chante le plus faux ?', 'Qui est toujours en retard ?', 'Qui pleure devant les films ?', 'Qui gagne les disputes ?', 'Qui a le plus mauvais sens de l\'orientation ?'],
+  'quiz-des-couples': ['Quel est son plat préféré ?', 'Où vous êtes-vous rencontrés ?', 'Quel est son film culte ?', 'Quel métier rêvait-il ou elle de faire enfant ?', 'Quelle est sa plus grande manie ?', 'Quel pays rêve-t-il ou elle de visiter ?', 'Quelle est sa chanson préférée ?', 'Qu\'est-ce qui l\'énerve le plus ?'],
   'telephone-dessine': ['Un chat qui fait du ski', 'Mamie gagne au loto', 'Un dinosaure au restaurant', 'Le Père Noël en vacances à la plage', 'Un robot qui arrose ses fleurs', 'Une fusée en retard'],
   'quiz-invites': ['Quel était votre premier métier ou job d\'été ?', 'Quel est votre plat préféré ?', 'Quel pays rêvez-vous de visiter ?', 'Quel est votre surnom d\'enfance ?', 'Quel talent caché avez-vous ?', 'Quelle est votre plus grande peur ?'],
   'petit-bac': ['Catégories : Prénom, Animal, Pays, Métier, Fruit ou légume, Objet de la maison', 'Lettre 1 : B', 'Lettre 2 : M', 'Lettre 3 : C', 'Lettre 4 : P', 'Lettre 5 : S', 'Lettre bonus : L'],
@@ -140,7 +149,7 @@ function contentFor(game: Game): ActivityContent {
     case 'words':
       return {
         kind: 'words',
-        items: game.id === 'taboo' ? TABOO : game.id === 'undercover' ? UNDERCOVER : WORDS,
+        items: game.id === 'taboo' ? TABOO : game.id === 'undercover' ? UNDERCOVER : game.id === 'mime-en-duo' ? DUO_SCENES : WORDS,
       };
     case 'blindtest':
       return { kind: 'blindtest', tracks: TRACKS };

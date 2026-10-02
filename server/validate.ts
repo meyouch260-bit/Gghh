@@ -1,4 +1,5 @@
-import type { AiActivity } from '../shared/schema.js';
+import { checkProgram } from '../shared/eligibility.js';
+import type { AiActivity, GenerateRequest } from '../shared/schema.js';
 import type { ContentKind, Game } from '../shared/types.js';
 
 const MIN_ITEMS: Record<ContentKind, number> = {
@@ -35,5 +36,17 @@ export function checkActivity(a: AiActivity, game: Game | undefined): string[] {
     errors.push(`${game.id} : au moins ${MIN_ITEMS[game.contentKind]} éléments attendus (reçu ${itemCount(a)}).`);
   }
   if (!a.intro.trim()) errors.push(`${game.id} : intro vide.`);
+  return errors;
+}
+
+/** Toutes les règles métier d'une réponse de l'IA. Renvoie la liste des erreurs. */
+export function validateResponse(req: GenerateRequest, activities: AiActivity[], allowed: Record<string, Game>): string[] {
+  const errors: string[] = [];
+  if (req.mode === 'program') {
+    errors.push(...checkProgram(activities.map((a) => a.gameId), allowed, req.settings));
+  } else if (activities.length !== 1 || activities[0].gameId !== req.gameId) {
+    errors.push(`Il faut exactement une activité pour le jeu "${req.gameId}".`);
+  }
+  for (const a of activities) errors.push(...checkActivity(a, allowed[a.gameId]));
   return errors;
 }

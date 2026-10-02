@@ -2,7 +2,8 @@ import type { AiActivity } from '../../shared/schema';
 import type { ActivityStatus, Party, PartySettings, Player, Team } from '../../shared/types';
 
 export type Action =
-  | { type: 'CREATE_PARTY'; settings: PartySettings; activities: AiActivity[] }
+  | { type: 'CREATE_PARTY'; settings: PartySettings; activities: AiActivity[]; source: 'ai' | 'demo' }
+  | { type: 'TOGGLE_PREP'; item: string }
   | { type: 'SET_LARGE_TEXT'; value: boolean }
   | { type: 'SET_PLAYERS'; players: Player[] }
   | { type: 'SET_TEAMS'; teams: Team[]; players: Player[] }

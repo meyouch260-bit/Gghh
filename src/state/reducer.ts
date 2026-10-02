@@ -37,6 +37,8 @@ export function reducer(state: AppState, action: Action): AppState {
         activities: action.activities.map((a, i) => toActivity(a, i)),
         scores: [],
         phase: 'playing',
+        source: action.source,
+        prepChecked: [],
       };
       return { ...state, party, largeText: action.settings.largeText };
     }
@@ -83,6 +85,14 @@ export function reducer(state: AppState, action: Action): AppState {
           })),
         ],
       }));
+    case 'TOGGLE_PREP':
+      return updateParty(state, (p) => {
+        const checked = p.prepChecked ?? [];
+        return {
+          ...p,
+          prepChecked: checked.includes(action.item) ? checked.filter((i) => i !== action.item) : [...checked, action.item],
+        };
+      });
     case 'FINISH':
       return updateParty(state, (p) => ({ ...p, phase: 'finished' }));
     case 'RESUME':

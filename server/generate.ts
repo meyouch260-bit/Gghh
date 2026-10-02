@@ -1,7 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod';
 import { GAMES, GAMES_BY_ID } from '../data/games.js';
-import { checkProgram, eligibleGames, isEligible } from '../shared/eligibility.js';
+import { eligibleGames, isEligible } from '../shared/eligibility.js';
 import {
   AiProgramSchema,
   GenerateRequestSchema,
@@ -12,7 +12,7 @@ import {
 import type { Game } from '../shared/types.js';
 import { demoActivities } from './demo.js';
 import { SYSTEM_PROMPT, activityUserMessage, programUserMessage } from './prompt.js';
-import { checkActivity } from './validate.js';
+import { validateResponse } from './validate.js';
 
 const DEFAULT_MODEL = 'claude-sonnet-4-6';
 const MAX_ATTEMPTS = 2; // 1 essai + 1 retry
@@ -97,7 +97,7 @@ async function generateWithClaude(req: GenerateRequest, games: Game[]): Promise<
     }
 
     const output = response.parsed_output;
-    lastErrors = output ? validate(req, output.activities, allowedById) : ['Réponse JSON illisible ou incomplète.'];
+    lastErrors = output ? validateResponse(req, output.activities, allowedById) : ['Réponse JSON illisible ou incomplète.'];
     if (response.stop_reason === 'max_tokens') lastErrors.push('Réponse tronquée : sois plus concis.');
     if (output && lastErrors.length === 0) return output.activities;
 
@@ -113,15 +113,4 @@ async function generateWithClaude(req: GenerateRequest, games: Game[]): Promise<
     );
   }
   throw new Error('Validation échouée après retry : ' + lastErrors.join(' | '));
-}
-
-function validate(req: GenerateRequest, activities: AiActivity[], allowed: Record<string, Game>): string[] {
-  const errors: string[] = [];
-  if (req.mode === 'program') {
-    errors.push(...checkProgram(activities.map((a) => a.gameId), allowed, req.settings));
-  } else if (activities.length !== 1 || activities[0].gameId !== req.gameId) {
-    errors.push(`Il faut exactement une activité pour le jeu "${req.gameId}".`);
-  }
-  for (const a of activities) errors.push(...checkActivity(a, allowed[a.gameId]));
-  return errors;
 }
